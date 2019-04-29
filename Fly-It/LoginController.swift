@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
-class LoginController: UIViewController{
+class LoginController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate{
     
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -21,6 +22,9 @@ class LoginController: UIViewController{
     var lastOffset: CGPoint!
     var keyboardHeight: CGFloat!
     
+//    var surel : String?
+//    var sandi : String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -29,12 +33,77 @@ class LoginController: UIViewController{
         email.delegate = self
         password.delegate = self
         
+//        if !(surel!.isEmpty){
+//            email.text = surel
+//            password.text = sandi
+//        }
+        
         // Observe keyboard change
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         // Add touch gesture for contentView
         self.contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(returnTextView(gesture:))))
+        
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().uiDelegate = self
+        
+        // Uncomment to automatically sign in the user.
+        //GIDSignIn.sharedInstance().signInSilently()
+        
+        // TODO(developer) Configure the sign-in button look/feel
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? PreferenceController {
+            destinationVC.fromdesc = "Login"
+            
+//            destinationVC.email = email.text!
+//            destinationVC.password = password.text!
+            
+        }
+    }
+    
+    // Present a sign-in with Google window
+    @IBAction func googleSignIn(sender: Any) {
+        GIDSignIn.sharedInstance().signIn()
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//        print(“Google Sing In didSignInForUser”)
+        if let error = error {
+//            print(error.localizedDescription)
+            let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: (authentication.idToken)!, accessToken: (authentication.accessToken)!)
+        // When user is signed in
+        Auth.auth().signInAndRetrieveData(with: credential, completion: { (user, error) in
+            if let error = error {
+                print("Login error: \(error.localizedDescription)")
+                return
+            }else{
+                self.performSegue(withIdentifier: "loginToHome", sender: self)
+            }
+        })
+    }
+    // Start Google OAuth2 Authentication
+    func sign(_ signIn: GIDSignIn?, present viewController: UIViewController?) {
+        
+        // Showing OAuth2 authentication window
+        if let aController = viewController {
+            present(aController, animated: true) {() -> Void in }
+        }
+    }
+    // After Google OAuth2 authentication
+    func sign(_ signIn: GIDSignIn?, dismiss viewController: UIViewController?) {
+        // Close OAuth2 authentication window
+        dismiss(animated: true) {() -> Void in }
     }
     
     @objc func returnTextView(gesture: UIGestureRecognizer) {
@@ -60,8 +129,34 @@ class LoginController: UIViewController{
                 self.present(alertController, animated: true, completion: nil)
             }
         }
-        
+
     }
+    
+//    @IBAction func didTapSignOut(_ sender: AnyObject) {
+//        GIDSignIn.sharedInstance().signOut()
+//    }
+    
+    // Implement these methods only if the GIDSignInUIDelegate is not a subclass of
+    // UIViewController.
+    
+    // Stop the UIActivityIndicatorView animation that was started when the user
+    // pressed the Sign In button
+//    func signInWillDispatch(signIn: GIDSignIn!, error: NSError!) {
+//        myActivityIndicator.stopAnimating()
+//    }
+    
+    // Present a view that prompts the user to sign in with Google
+//    func signIn(signIn: GIDSignIn!,
+//                presentViewController viewController: UIViewController!) {
+//        self.present(viewController, animated: true, completion: nil)
+//    }
+    
+    // Dismiss the "Sign in with Google" view
+//    func signIn(signIn: GIDSignIn!,
+//                dismissViewController viewController: UIViewController!) {
+//        self.dismiss(animated: true, completion: nil)
+//    }
+    
 }
 
 // MARK: UITextFieldDelegate

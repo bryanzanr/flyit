@@ -43,6 +43,12 @@ class RegisterController: UIViewController {
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? PreferenceController {
+            destinationVC.fromdesc = "Register"
+        }
+    }
+    
     @objc func returnTextView(gesture: UIGestureRecognizer) {
         guard activeField != nil else {
             return
