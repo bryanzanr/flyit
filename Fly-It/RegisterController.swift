@@ -24,6 +24,9 @@ class RegisterController: UIViewController {
     var lastOffset: CGPoint!
     var keyboardHeight: CGFloat!
     
+    var nameUser : String? = "Enter Name"
+    var surel : String? = "Enter Email"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -33,6 +36,9 @@ class RegisterController: UIViewController {
         email.delegate = self
         password.delegate = self
         passwordConfirm.delegate = self
+        
+        userName.placeholder = nameUser
+        email.placeholder = surel
         
         // Observe keyboard change
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -46,6 +52,10 @@ class RegisterController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? PreferenceController {
             destinationVC.fromdesc = "Register"
+            
+            destinationVC.email = email.text
+            destinationVC.userName = userName.text
+            
         }
     }
     

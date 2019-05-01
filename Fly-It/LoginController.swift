@@ -22,8 +22,9 @@ class LoginController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate{
     var lastOffset: CGPoint!
     var keyboardHeight: CGFloat!
     
-//    var surel : String?
-//    var sandi : String?
+    var surel : String? = "Enter Email"
+    
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +34,7 @@ class LoginController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate{
         email.delegate = self
         password.delegate = self
         
-//        if !(surel!.isEmpty){
-//            email.text = surel
-//            password.text = sandi
-//        }
+        email.placeholder = surel
         
         // Observe keyboard change
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -48,6 +46,8 @@ class LoginController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate{
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         
+        ref = Database.database().reference()
+        
         // Uncomment to automatically sign in the user.
         //GIDSignIn.sharedInstance().signInSilently()
         
@@ -55,11 +55,11 @@ class LoginController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if let destinationVC = segue.destination as? PreferenceController {
             destinationVC.fromdesc = "Login"
             
-//            destinationVC.email = email.text!
-//            destinationVC.password = password.text!
+            destinationVC.email = email.text!
             
         }
     }
@@ -119,7 +119,17 @@ class LoginController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate{
         
         Auth.auth().signIn(withEmail: email.text!, password: password.text!) { (user, error) in
             if error == nil{
-                self.performSegue(withIdentifier: "loginToHome", sender: self)
+                let userID = Auth.auth().currentUser!.uid
+                self.ref.child("users").child(userID).child("prefs").observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get user value
+                    let value = snapshot.value as? String
+                    if (value == ""){
+                        self.performSegue(withIdentifier: "loginToHome", sender: self)
+                    }else{
+                        self.performSegue(withIdentifier: "loginToMain", sender: self)
+                    }
+                    // ...
+                })
             }
             else{
                 let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)

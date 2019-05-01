@@ -18,8 +18,10 @@ class PreferenceController: UIViewController{
     
     var fromdesc : String?
     
-//    var email : String?
-//    var password : String?
+    var email : String?
+    var userName : String?
+    
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,15 +41,27 @@ class PreferenceController: UIViewController{
         let propertyTap = UITapGestureRecognizer(target: self, action: #selector(propertyDetected))
         property.isUserInteractionEnabled = true
         property.addGestureRecognizer(propertyTap)
+        
+        ref = Database.database().reference()
     
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let destinationVC = segue.destination as? LoginController {
-//            destinationVC.surel = email
-//            destinationVC.sandi = password
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+//        let alertController = UIAlertController(title: "Error", message: email, preferredStyle: .alert)
+//        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+//
+//        alertController.addAction(defaultAction)
+//        self.present(alertController, animated: true, completion: nil)
+        
+        if let destinationVC = segue.destination as? LoginController {
+            destinationVC.surel = email
+        }else if let destinationVC = segue.destination as? RegisterController{
+            destinationVC.nameUser = userName
+            destinationVC.surel = email
+        }
+        
+    }
     
     @IBAction func backAction(_ sender: Any) {
         if (fromdesc == "Login"){
@@ -76,9 +90,10 @@ class PreferenceController: UIViewController{
             prefs = String(prefs[prefs.index(prefs.startIndex, offsetBy: 0)..<prefs.index(prefs.endIndex, offsetBy: -1)])
         }
         
-//        let myRef = self.ref.child("users").child(currentUser.uid).child("prefs")
-//        myref.setValue(prefs)
-//        self.performSegue(withIdentifier: "prefToHome", sender: self)
+        let userID = Auth.auth().currentUser!.uid
+        let myRef = self.ref.child("users").child(userID).child("prefs")
+        myRef.setValue(prefs)
+        self.performSegue(withIdentifier: "prefToMain", sender: self)
         
     }
     

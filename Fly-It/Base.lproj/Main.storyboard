@@ -112,6 +112,7 @@
                         <outlet property="password" destination="ge7-wp-8RF" id="aru-7A-1Pl"/>
                         <outlet property="scrollView" destination="CH5-XT-dYN" id="OY1-HA-nJl"/>
                         <segue destination="oaz-Ft-Mtc" kind="show" identifier="loginToHome" id="lce-q6-sNB"/>
+                        <segue destination="kFd-bf-aYv" kind="show" identifier="loginToMain" id="uqe-0H-tSf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MXL-eZ-WeE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -198,11 +199,45 @@
                         <outlet property="property" destination="5I0-Lj-2JU" id="E10-x1-unw"/>
                         <segue destination="lY4-XH-yEX" kind="show" identifier="backToHome" id="UEO-PH-oft"/>
                         <segue destination="Noy-D9-bzD" kind="show" identifier="backToRegis" id="hQk-24-KdK"/>
+                        <segue destination="kFd-bf-aYv" kind="show" identifier="prefToMain" id="VQU-OE-LcW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PMF-np-vt0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="948" y="820.83958020989508"/>
+        </scene>
+        <!--Home Controller-->
+        <scene sceneID="SIZ-Jb-xhE">
+            <objects>
+                <viewController id="kFd-bf-aYv" customClass="HomeController" customModule="Fly_It" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uB3-IU-UR3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UFm-RK-KON">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem systemItem="favorites" id="fU4-Z2-USN"/>
+                                    <tabBarItem systemItem="more" id="cMU-9f-PCy"/>
+                                </items>
+                            </tabBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J9j-Tb-keN">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Item" id="moo-VZ-XTW"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="sdr-nB-tFT"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sK8-dv-jxg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="79" y="99"/>
         </scene>
         <!--Register Controller-->
         <scene sceneID="M2u-za-6UU">
@@ -361,6 +396,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hQk-24-KdK"/>
+        <segue reference="VQU-OE-LcW"/>
         <segue reference="lce-q6-sNB"/>
         <segue reference="UEO-PH-oft"/>
     </inferredMetricsTieBreakers>

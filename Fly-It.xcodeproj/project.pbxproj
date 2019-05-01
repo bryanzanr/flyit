@@ -11,6 +11,7 @@
 		A1770F452265DA880063ED00 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1770F442265DA880063ED00 /* GoogleService-Info.plist */; };
 		A1770F47226659BB0063ED00 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1770F46226659BB0063ED00 /* LoginController.swift */; };
 		A17F4A95226A290000A1C146 /* PreferenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F4A94226A290000A1C146 /* PreferenceController.swift */; };
+		A194C538227A153F001F0FBE /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A194C537227A153F001F0FBE /* HomeController.swift */; };
 		A1DF98172264E79500087AE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DF98162264E79500087AE2 /* AppDelegate.swift */; };
 		A1DF98192264E79500087AE2 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DF98182264E79500087AE2 /* RegisterController.swift */; };
 		A1DF981C2264E79500087AE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DF981A2264E79500087AE2 /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 		A1770F442265DA880063ED00 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A1770F46226659BB0063ED00 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		A17F4A94226A290000A1C146 /* PreferenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceController.swift; sourceTree = "<group>"; };
+		A194C537227A153F001F0FBE /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		A1DF98132264E79500087AE2 /* Fly-It.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fly-It.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1DF98162264E79500087AE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1DF98182264E79500087AE2 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				A1DF98222264E79800087AE2 /* Info.plist */,
 				A1770F46226659BB0063ED00 /* LoginController.swift */,
 				A17F4A94226A290000A1C146 /* PreferenceController.swift */,
+				A194C537227A153F001F0FBE /* HomeController.swift */,
 			);
 			path = "Fly-It";
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -191,6 +195,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,6 +258,7 @@
 				A1DF98192264E79500087AE2 /* RegisterController.swift in Sources */,
 				A1770F47226659BB0063ED00 /* LoginController.swift in Sources */,
 				A1DF98172264E79500087AE2 /* AppDelegate.swift in Sources */,
+				A194C538227A153F001F0FBE /* HomeController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

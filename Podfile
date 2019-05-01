@@ -14,4 +14,6 @@ target 'Fly-It' do
 
   pod 'GoogleSignIn'
 
+  pod 'Firebase/Database'
+
 end
